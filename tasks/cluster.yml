@@ -15,10 +15,6 @@
   register: master
   tags: ['skip_ansible_galaxy']
 
-- name: asd asd
-  debug:
-    var: master
-
 - name: Stop mysql slave thread
   mysql_replication:
     mode: stopslave
