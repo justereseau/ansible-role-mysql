@@ -24,3 +24,6 @@
 - include_tasks: databases.yml
 - include_tasks: users.yml
 - include_tasks: replication.yml
+  when: not mysql_cluster
+- include_tasks: cluster.yml
+  when: mysql_cluster
