@@ -1,7 +1,5 @@
 # Ansible Role: MySQL
 
-[![CI](https://github.com/geerlingguy/ansible-role-mysql/workflows/CI/badge.svg?event=push)](https://github.com/geerlingguy/ansible-role-mysql/actions?query=workflow%3ACI)
-
 Installs and configures MySQL or MariaDB server on RHEL/CentOS or Debian/Ubuntu servers.
 
 ## Requirements
@@ -128,6 +126,15 @@ Replication settings. Set `mysql_server_id` and `mysql_replication_role` by serv
 
 `mysql_replication_master` needs to resolve to an IP or a hostname which is accessable to the Slaves (this could be a `/etc/hosts` injection or some other means), otherwise the slaves cannot communicate to the master.
 
+
+    mysql_cluster: true
+    mysql_cluster_ip:  "10.40.10.15"
+    mysql_cluster_twin: ''
+    mysql_server_id: "1"
+
+This configuration make a master-master setup binded to the shared ip `mysql_cluster_ip`.
+Each node need to tell his twin in the cluster with the `mysql_cluster_twin`.
+`mysql_server_id` still applies.
 ### Later versions of MySQL on CentOS 7
 
 If you want to install MySQL from the official repository instead of installing the system default MariaDB equivalents, you can add the following `pre_tasks` task in your playbook:
