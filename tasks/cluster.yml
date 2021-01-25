@@ -18,6 +18,7 @@
 - name: Stop mysql slave thread
   mysql_replication:
     mode: stopslave
+  when: mysql_cluster_override or not mysql_installed.stat.exists
 
 - name: Configure replication on both server
   mysql_replication:
@@ -28,7 +29,9 @@
     master_log_file: "{{ master.File }}"
     master_log_pos: "{{ master.Position }}"
   ignore_errors: true
+  when: mysql_cluster_override or not mysql_installed.stat.exists
 
 - name: Start replication.
   mysql_replication: mode=startslave
   tags: ['skip_ansible_galaxy']
+  when: mysql_cluster_override or not mysql_installed.stat.exists
